@@ -3,9 +3,11 @@ import { sprintf } from 'sprintf-js';
 import 'bootstrap-sass/assets/javascripts/bootstrap';
 
 
-$('[data-toggle=tooltip]').tooltip();
+$(document).on('turbolinks:load', function() {
+  $('[data-toggle=tooltip]').tooltip();
 
-for (let ev of ['change', 'keyup', 'keydown']) {
+}).on("click", "button", function(e) {
+
   let $entrada = document.getElementById('entrada');
 
   $entrada.addEventListener(ev, () => {
@@ -25,12 +27,12 @@ function frequencyModule(vals) {
   let intervals = calcIntervals(vals);
 
   let tableInfo = intervals.map((interval) => {
-    let min = interval.min, max = interval.max;;
+    let min = interval.min, max = interval.max;
 
     return {
       interval: sprintf('%03d ├─ %03d', min, max),
       frequency: vals.map((n) => {
-        return (n <= max && n >= min) ? 1 : 0;
+        return (n < max && n >= min) ? 1 : 0;
       }).reduce((a, b) => {
         return a + b;
       })
@@ -93,12 +95,14 @@ function calcIntervals(vals) {
   let maxNum = intervals[intervals.length - 1];
   let minNum = intervals[0];
   let groupCount  = Math.round(1 + 3.22 * Math.log10(intervals.length));
+
   let groupLength = (maxNum - minNum) / groupCount;
+  groupLength = parseInt(groupLength) + 1;
   let result = [], n = minNum;
 
   for (let i = 0; i < groupCount; i++) {
-    result[i] = {min: Math.round(n), max: Math.round(Math.min(n + groupLength, maxNum))}
-    n += groupLength + 1;
+    result[i] = {min: Math.round(n), max: Math.round(Math.min(n + groupLength))}
+    n += groupLength ;
   }
 
   return result;
@@ -111,7 +115,7 @@ function infoModule(vals) {
 
   document
     .getElementById('conjunto')
-    .innerHTML = sprintf(`{ %s }`, vals.join(', '));
+    .innerHTML = sprintf(` %s `, vals.join(', '));
 
   let media = calculaMediaAritmetica(vals)
 

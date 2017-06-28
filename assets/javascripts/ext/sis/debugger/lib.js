@@ -2,22 +2,18 @@ import { sprintf } from 'sprintf-js';
 
 import 'bootstrap-sass/assets/javascripts/bootstrap';
 
+$('[data-toggle=tooltip]').tooltip();
 
-$(document).on('turbolinks:load', function() {
-  $('[data-toggle=tooltip]').tooltip();
+document.getElementById("botao").addEventListener("click", calcula);
 
-}).on("click", "button", function(e) {
-
+function calcula() {
   let $entrada = document.getElementById('entrada');
-
-  $entrada.addEventListener(ev, () => {
-    let inputVals = $entrada.value.trim().split(/\s+/).map(Number);
-    let sortedVals = inputVals.slice(0).sort((a, b) => {
-      return parseInt(a || 0, 10) - parseInt(b || 0, 10);
-    });
-    frequencyModule(inputVals);
-    infoModule(sortedVals);
+  let inputVals = $entrada.value.trim().split(/\s+/).map(Number);
+  let sortedVals = inputVals.slice(0).sort((a, b) => {
+    return parseInt(a || 0, 10) - parseInt(b || 0, 10);
   });
+  frequencyModule(inputVals);
+  infoModule(sortedVals);
 }
 
 

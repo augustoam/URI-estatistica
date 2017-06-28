@@ -3,4 +3,4 @@ window.$ = window.jQuery = jQuery;
 
 import 'bootstrap-sass/assets/javascripts/bootstrap';
 import Chart from 'chart.js'
-import './input';
+import './ext/sis/debugger/lib';

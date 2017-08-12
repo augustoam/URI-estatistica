@@ -1,8 +1,18 @@
-textarea {
-  max-width: 100%;
-  max-height: 100%;
+a {
+	color: black;
+	font-weight: bold;
 }
 
-[data-toggle=tooltip]:hover {
-  cursor: pointer !important;
+.transparentBG {
+  background-color: rgba(0,0,0,0);
+}
+
+.item-nav {
+	border-bottom-color: #fff;
+	margin: 22px 20px;
+}
+
+nav {
+	background-color: rgba(0,0,0,0);
+	border-bottom: none;
 }
